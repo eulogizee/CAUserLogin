@@ -1,13 +1,6 @@
 package app;
 
-import java.awt.CardLayout;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
-
-import data_access.DBUserDataAccessObject;
-import entity.CommonUserFactory;
+import data_access.InMemoryUserDataAccessObject;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
@@ -17,10 +10,15 @@ import view.LoginView;
 import view.SignupView;
 import view.ViewManager;
 
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
+import java.awt.CardLayout;
+
 /**
  * The version of Main with an external database used to persist user data.
  */
-public class MainWithDB {
+public class MainWithInMemory {
 
     /**
      * The main method for starting the program with an external database used to persist user data.
@@ -51,9 +49,7 @@ public class MainWithDB {
         final LoginViewModel loginViewModel = new LoginViewModel();
         final LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
         final SignupViewModel signupViewModel = new SignupViewModel();
-
-        final DBUserDataAccessObject userDataAccessObject = new DBUserDataAccessObject(new CommonUserFactory());
-
+        final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
         final SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel,
                                                                   signupViewModel, userDataAccessObject);
         views.add(signupView, signupView.getViewName());
